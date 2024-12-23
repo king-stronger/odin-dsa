@@ -1,3 +1,14 @@
+import LinkedList from "../LinkedList/LinkedList";
+
+function hashMap(){
+    let loadFactor = 0.8;
+    let capacity = 16;
+    let buckets = new Array(16);
+
+    
+}
+
+
 /**
  * 
  * @param {String} key The key to hash
