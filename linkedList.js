@@ -74,6 +74,42 @@ function createLinkedList(){
         pop(node.nextNode, previousNode);
     }
 
+    /**
+     * 
+     * @param {*} value The value of the node we should verify if it exists
+     * @param {*} node The head of the linked list
+     * @returns {Boolean} Returns true if the node was found or false if it wasn't
+     */
+    function contains(value, node = head){
+        if(node === null) return false;
+        if(node.value === value) return true;
+        return contains(value, node.nextNode);
+    }
+
+    /**
+     * 
+     * @param {*} value The value of the node we should find and returns
+     * @param {Object} node The head of the linked list
+     * @param {*} index The index of the found node 
+     * @returns {Number} Returns the index of the found node
+     */
+    function find(value, node = head, index = 0){
+        if(node === null) return null;
+        if(node.value === value) return index;
+        return find(value, node.nextNode, index + 1);
+    }
+
+    /**
+     * 
+     * @param {Object} node The head of the linked lits
+     * @param {String} string The returned values of the nodes in a string format
+     * @returns {String} Returns the string value
+     */
+    function toString(node = head, string = ''){
+        if(node === null) return `${string} -> null`;
+        string += `${node.value} -> `;
+        return toString(node.nextNode, string);
+    }
     
 }
 
