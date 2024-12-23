@@ -9,6 +9,7 @@ function hash(key){
 
     for(let i = 0; i < key.length; i++){
         hashcode = primeNumber * hashcode + key.charCodeAt(i);
+        hashcode = hashcode % 16;
     }
 
     return hashcode;
