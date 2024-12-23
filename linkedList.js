@@ -5,6 +5,7 @@ function createLinkedList(){
     /**
      * 
      * @param {Object} node The node to append to the linked list 
+     * @returns {void}
      */
     function append(node){
         if(tail){
@@ -18,6 +19,7 @@ function createLinkedList(){
     /**
      * 
      * @param {Object} node The node to prepend to the linked list
+     * @returns {void}
      */
     function prepend(node){
         if(head){
@@ -32,7 +34,7 @@ function createLinkedList(){
      * 
      * @param {Number} count The variable to increment when we traverse the linked list
      * @param {Object} node The head of the linked list object 
-     * @returns 
+     * @returns {Number} Returns the size of the list
      */
     function size(count = 0, node = head){
         if(node === null) return count;
@@ -57,7 +59,7 @@ function createLinkedList(){
      * 
      * @param {Object} node The head of the linkedlist
      * @param {Object} previousNode To keep a trace of the previous node when traversing
-     * @returns Returns nothings, just remove the last node of the linked list
+     * @returns {void} Returns nothings, just remove the last node of the linked list
      */
     function pop(node = head, previousNode){
         if(node.nextNode ===  null){
@@ -111,6 +113,76 @@ function createLinkedList(){
         return toString(node.nextNode, string);
     }
     
+    /**
+     * 
+     * @param {*} value The value of the node to insert
+     * @param {Number} index The index of the newly created node 
+     * @param {Object} node The head of the linked list
+     * @param {Number} count The number to increment when iterating through the linked list
+     * @param {Object} previousNode To keep trace of the previous node
+     * @returns {void} Returns nothing
+     */
+    function insertAt(value, index, node = head, count = 0, previousNode){
+        if(index === 0){
+            let newNode = createNode(value);
+            newNode.nextNode = head;
+            head = newNode;
+            return;
+        }
+
+        if(node === null) return null;
+
+        if(index === count){
+            let newNode = createNode(value);
+            newNode.nextNode = node;
+            previousNode.nextNode = newNode;
+            return;
+        }
+
+        previousNode = node;
+        insertAt(value, index, node.nextNode, count + 1, previousNode);
+    }
+
+    /**
+     * 
+     * @param {Number} index The index of the node to be removed
+     * @param {Object} node The head of the linked list
+     * @param {Object} previousNode To keep a trace of the previous node
+     * @param {Number} count The number to increment when iterating through the list
+     * @returns {void}
+     */
+    function removeAt(index, node = head, previousNode, count = 0){
+        if(node === null) return;
+
+        
+        if(index === 0){
+            head = node.nextNode;
+            if(head === null) tail = null;
+            return;
+        }
+
+        if(index === count) {
+            previousNode.nextNode = node.nextNode;
+            if(previousNode.nextNode === null) tail = previousNode;
+            return;
+        }
+
+        previousNode = node;
+        removeAt(index, node, previousNode, count + 1);
+    }
+
+    return {
+        append,
+        prepend,
+        size,
+        pop,
+        at,
+        find,
+        contains,
+        toString,
+        insertAt,
+        removeAt
+    }
 }
 
 function createNode(value){
