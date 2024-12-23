@@ -15,6 +15,19 @@ function createLinkedList(){
         }
     }
 
+    /**
+     * 
+     * @param {Object} node The node to prepend to the linked list
+     */
+    function prepend(node){
+        if(head){
+            node.nextNode = head;
+            head = node;
+        } else {
+            head = tail = node;
+        }
+    }
+
 }
 
 function createNode(value){
