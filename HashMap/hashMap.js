@@ -87,6 +87,31 @@ function hashMap(){
 
         return false;
     }
+
+    function remove(key){
+        let index = hash(key);
+        let list = buckets[index];
+
+        if(!list){
+            return false;
+        }
+
+        let node = list.head;
+        let indexToRemove = 0;
+
+        while(node){
+            if(node.value.key === key){
+                list.removeAt(indexToRemove);
+                numberOfStoredItems--;
+                return true;
+            }
+
+            indexToRemove++;
+            node = node.nextNode;
+        }
+
+        return false;
+    }
     
     /**
      * 
@@ -106,6 +131,6 @@ function hashMap(){
     }
 
     return {
-        set, get, has
+        set, get, has, remove
     }
 }
