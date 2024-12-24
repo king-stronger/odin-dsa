@@ -192,4 +192,7 @@ function createNode(value){
     }
 }
 
-export default createLinkedList;
+export {
+    createLinkedList,
+    createNode
+}
