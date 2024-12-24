@@ -2,6 +2,10 @@ function createLinkedList(){
     let head = null;
     let tail = null;
 
+    function getHead(){
+        return head;
+    }
+
     /**
      * 
      * @param {Object} node The node to append to the linked list 
@@ -98,6 +102,7 @@ function createLinkedList(){
     function find(value, node = head, index = 0){
         if(node === null) return null;
         if(node.value === value) return index;
+        if(typeof value === "object" && JSON.stringify(node.value) === JSON.stringify(value)) return index;
         return find(value, node.nextNode, index + 1);
     }
 
@@ -109,7 +114,7 @@ function createLinkedList(){
      */
     function toString(node = head, string = ''){
         if(node === null) return `${string} -> null`;
-        string += `${node.value} -> `;
+        string += `(${node.value.key}: ${node.value.value}) -> `;
         return toString(node.nextNode, string);
     }
     
@@ -122,7 +127,7 @@ function createLinkedList(){
      * @param {Object} previousNode To keep trace of the previous node
      * @returns {void} Returns nothing
      */
-    function insertAt(value, index, node = head, count = 0, previousNode){
+    function insertAt(value, index, head, previousNode){
         if(index === 0){
             let newNode = createNode(value);
             newNode.nextNode = head;
@@ -132,7 +137,7 @@ function createLinkedList(){
 
         if(node === null) return null;
 
-        if(index === count){
+        if(index === 0){
             let newNode = createNode(value);
             newNode.nextNode = node;
             previousNode.nextNode = newNode;
@@ -140,7 +145,7 @@ function createLinkedList(){
         }
 
         previousNode = node;
-        insertAt(value, index, node.nextNode, count + 1, previousNode);
+        insertAt(value, index - 1, node.nextNode, previousNode);
     }
 
     /**
@@ -172,6 +177,7 @@ function createLinkedList(){
     }
 
     return {
+        getHead,
         append,
         prepend,
         size,

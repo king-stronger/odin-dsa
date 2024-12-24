@@ -1,13 +1,13 @@
-import { createLinkedList, createNode } from "../LinkedList/linkedList";
+import { createLinkedList, createNode } from "../LinkedList/linkedList.js";
 
-function hashMap(){
+export function hashMap(){
     let capacity = 16;
     let loadFactor = 0.8;
     let numberOfStoredItems = 0;
     let buckets = new Array(capacity);
 
     /**
-     * 
+     * The find method is still not goot because the linkedlist wasn't adapted for it
      * @param {string} key 
      * @param {*} value 
      */
@@ -23,8 +23,8 @@ function hashMap(){
         }
 
         let list = buckets[index];
-        let existingNodeIndex = list.find(value);
-
+        let existingNodeIndex = list.find({key, value});
+        
         if(existingNodeIndex){
             let existingNode = list.at(existingNodeIndex);
             existingNode.value = value;
@@ -46,13 +46,13 @@ function hashMap(){
     function get(key){
         let index = hash(key);
         let list = buckets[index];
-
+        
         if(!list){
             return null;
         }
-
-        let node = list.head;
-
+        
+        let node = list.getHead();
+        
         while(node){
             if(node.value.key === key){
                 return node.value.value;
@@ -76,7 +76,7 @@ function hashMap(){
             return false;
         }
 
-        let node = list.head;
+        let node = list.getHead();
 
         while(node){
             if(node.value.key === key){
@@ -101,7 +101,7 @@ function hashMap(){
             return false;
         }
 
-        let node = list.head;
+        let node = list.getHead();
         let indexToRemove = 0;
 
         while(node){
@@ -142,7 +142,7 @@ function hashMap(){
     function keys(){
         let keys = [];
         buckets.forEach(list => {
-            let node = list.head;
+            let node = list.getHead();
 
             while(node){
                 keys.push(node.value.key);
@@ -159,7 +159,7 @@ function hashMap(){
     function values(){
         let values = [];
         buckets.forEach(list => {
-            let node = list.head;
+            let node = list.getHead();
 
             while(node){
                 values.push(node.value.value);
@@ -178,7 +178,7 @@ function hashMap(){
         let entries = [];
 
         buckets.forEach(list => {
-            let node = list.head;
+            let node = list.getHead();
 
             while(node){
                 entries.push([node.value.key, node.value.value]);
@@ -216,7 +216,7 @@ function hashMap(){
 
         oldBuckets.forEach(list => {
             if(list){
-                let node = list.head;
+                let node = list.getHead();
 
                 while(node){
                     set(node.value.key, node.value.value);
