@@ -37,6 +37,56 @@ function hashMap(){
             }
         }
     }
+
+    /**
+     * 
+     * @param {string} key 
+     * @returns {*|null} Returns the value if it was found or null if it wasn't
+     */
+    function get(key){
+        let index = hash(key);
+        let list = buckets[index];
+
+        if(!list){
+            return null;
+        }
+
+        let node = list.head;
+
+        while(node){
+            if(node.value.key === key){
+                return node.value.value;
+            }
+            node = node.nextNode;
+        }
+
+        return null;
+    }
+
+    /**
+     * 
+     * @param {String} key 
+     * @returns {Boolean} Returns a true or false statement if it found the key or not
+     */
+    function has(key){
+        let index = hash(key);
+        let list = buckets[index];
+
+        if(!list){
+            return false;
+        }
+
+        let node = list.head;
+
+        while(node){
+            if(node.value.key === key){
+                return true;
+            }
+            node = node.nextNode;
+        }
+
+        return false;
+    }
     
     /**
      * 
@@ -56,6 +106,6 @@ function hashMap(){
     }
 
     return {
-        set
+        set, get, has
     }
 }
