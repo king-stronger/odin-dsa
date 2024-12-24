@@ -88,6 +88,11 @@ function hashMap(){
         return false;
     }
 
+    /**
+     * 
+     * @param {String} key 
+     * @returns {Boolean} Returns a true or false statement if the item has been deleted or not
+     */
     function remove(key){
         let index = hash(key);
         let list = buckets[index];
@@ -112,6 +117,23 @@ function hashMap(){
 
         return false;
     }
+
+    /**
+     * 
+     * @returns {Number} Returns the number of stored items
+     */
+    function length(){
+        return numberOfStoredItems;
+    }
+
+    /**
+     * @returns {void}
+     */
+    function clear(){
+        capacity = 16;
+        buckets = new Array(capacity);
+        numberOfStoredItems = 0;
+    }
     
     /**
      * 
@@ -131,6 +153,6 @@ function hashMap(){
     }
 
     return {
-        set, get, has, remove
+        set, get, has, remove, length, clear
     }
 }
