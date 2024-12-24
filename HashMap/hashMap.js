@@ -127,12 +127,47 @@ function hashMap(){
     }
 
     /**
-     * @returns {void}
+     * @returns {void} Returns nothing, just clear the hashmap
      */
     function clear(){
         capacity = 16;
         buckets = new Array(capacity);
         numberOfStoredItems = 0;
+    }
+
+    /**
+     * 
+     * @returns {Array} Returns an array containing all the keys inside the hashMap
+     */
+    function keys(){
+        let keys = [];
+        buckets.forEach(list => {
+            let node = list.head;
+
+            while(node){
+                keys.push(node.value.key);
+                node = node.nextNode;
+            }
+        });
+
+        return keys;
+    }
+
+    /**
+     * @returns {Array} Returns an array containing all the values of the hashmap
+     */
+    function values(){
+        let values = [];
+        buckets.forEach(list => {
+            let node = list.head;
+
+            while(node){
+                values.push(node.value.value);
+                node = node.nextNode;
+            }
+        });
+        
+        return values;
     }
     
     /**
@@ -153,6 +188,6 @@ function hashMap(){
     }
 
     return {
-        set, get, has, remove, length, clear
+        set, get, has, remove, length, clear, keys, values
     }
 }
