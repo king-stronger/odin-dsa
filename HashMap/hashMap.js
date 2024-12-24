@@ -206,6 +206,26 @@ function hashMap(){
         return hashcode;
     }
 
+    /**
+     * @returns {void} Returns nothing, just resize the buckets and rehash the keys
+     */
+    function rehash(){
+        let oldBuckets = [...buckets];
+        capacity *= 2;
+        buckets = new Array(capacity);
+
+        oldBuckets.forEach(list => {
+            if(list){
+                let node = list.head;
+
+                while(node){
+                    set(node.value.key, node.value.value);
+                    node = node.nextNode;
+                }
+            }
+        });
+    }
+
     return {
         set, get, has, remove, length, clear, keys, values, entries
     }
