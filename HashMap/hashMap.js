@@ -169,6 +169,25 @@ function hashMap(){
         
         return values;
     }
+
+    /**
+     * 
+     * @returns {Array} Returns an array that contains each key, value pair
+     */
+    function entries(){
+        let entries = [];
+
+        buckets.forEach(list => {
+            let node = list.head;
+
+            while(node){
+                entries.push([node.value.key, node.value.value]);
+                node = node.nextNode;
+            }
+        })
+
+        return entries;
+    }
     
     /**
      * 
@@ -188,6 +207,6 @@ function hashMap(){
     }
 
     return {
-        set, get, has, remove, length, clear, keys, values
+        set, get, has, remove, length, clear, keys, values, entries
     }
 }
